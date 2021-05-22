@@ -157,7 +157,12 @@ router.get("/me", auth, async (req, res) => {
 router.post("/short", auth, async (req, res) => {
     try {
         // request.user is getting fetched from Middleware after token authentication
-        const {fullUrl} = req.body;
+        var {fullUrl} = req.body;
+        console.log('kdsa',fullUrl.substr(0,7));
+        if(fullUrl.substr(0,7)==='http://'){
+            fullUrl = 'https://'+fullUrl.substr(7);
+        }
+        console.log(fullUrl);
         const su = await ShortUrl.create({full: fullUrl, userId: req.user.id})
         var user = await User.findById(req.user.id);
         user.urls.push(su);
@@ -171,6 +176,7 @@ router.post("/short", auth, async (req, res) => {
 router.post("/delete", auth, async (req, res) => {
     try {
         // request.user is getting fetched from Middleware after token authentication
+        
         const {short} = req.body;
         console.log(short);
         await ShortUrl.findByIdAndRemove(short._id);
@@ -180,6 +186,7 @@ router.post("/delete", auth, async (req, res) => {
         user.urls.splice(ind, 1);
         user = await User.findByIdAndUpdate(req.user.id, {urls: user.urls});
         res.json({user});
+        
       } catch (e) {
         console.log(e);
         res.send({ message: e });
