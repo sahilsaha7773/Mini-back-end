@@ -1,5 +1,5 @@
 {
-  "name": "url-short-back",
+  "name": "mini-back-end",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -8,7 +8,7 @@
     "devStart": "nodemon index.js",
     "start": "node index.js"
   },
-  "author": "",
+  "author": "Sahil Saha",
   "license": "ISC",
   "dependencies": {
     "bcryptjs": "^2.4.3",
